@@ -1,0 +1,41 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Add Partitions to GRUB - Romam Blog</title>
+		<link rel="stylesheet" href="/style.css">
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td class="left_panel">
+					<h1>Links</h1>
+					<ul class="home_links">
+						<li>
+							<a href="/">Home</a>
+						</li>
+						<li>
+							<a href="https://simpletech-it.xyz">Personal Site</a>
+						</li>
+						<li>
+							<a href="https://simpletech-it.xyz/articles/contact.html">Contact Me</a>
+						</li>
+					</ul>
+				</td>
+
+				<td class="separator"> </td>
+
+				<td class="blog_body">
+					<h1>Add Partitions to GRUB Menu</h1>
+					<ol class="ordered_list">
+						<li>Install <code>os-prober</code> if it's not already installed.</li>
+						<li>Mount <b>all</b> the EFI partitions (the mount point doesn't matter so long as they're mounted somewhere).
+							Run <code>sudo fdisk -l</code> to see which are the EFI partitions.</li>
+						<li>Run <code>sudo grub-mkconfig -o /boot/grub/grub.cfg</code>.</li>
+					</ol>
+					<p>You should now see new entries in the GRUB menu.</p>
+				</td>
+			</tr>
+		</table>
+	</body>
+</html>

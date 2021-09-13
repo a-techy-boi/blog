@@ -1,0 +1,51 @@
+body {
+	max-width: 1500px;
+	margin-right: auto;
+	margin-left: auto;
+	font-family: monospace;
+	background-color: black;
+	padding-left: 20px;
+	padding-right: 20px;
+	background: #1a1a1a;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+	color: white;
+}
+
+p {
+	text-align: justify;
+}
+
+a {
+	color: skyblue;
+}
+a:visited {
+	color: crimson;
+}
+
+.home_links {
+	color: white;
+}
+
+.left_panel {
+	width: 150px;
+	padding-right: 40px;
+	vertical-align: top;
+}
+
+.separator {
+	background-color: white;
+}
+
+.blog_body {
+	padding-left: 20px;
+}
+
+.ordered_list {
+	color: white;
+}
+
+code {
+	color: limegreen;
+}
