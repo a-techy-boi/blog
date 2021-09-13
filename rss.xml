@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0">
+
+	<channel>
+		<title>Romam Blog</title>
+		<link>https://blog.simpletech-it.xyz</link>
+		<description>A place where I plan to leave some (hopefully useful) notes for people to read.</description>
+
+		<!-- One ITEM tag per Article -->
+		<item>
+			<title>Make RSS Feed for Your Websites</title>
+			<link>https://blog.simpletech-it.xyz/articles/make-rss-feed-for-site.html</link>
+			<author>itguy@simpletech-it.xyz</author>
+			<pubDate>Mon, 13 Sep 2021</pubDate>
+			<description>Make RSS Feed for Your Websites</description>
+		</item>
+		<item>
+			<title>Start X Server Upon Login</title>
+			<link>https://blog.simpletech-it.xyz/articles/template.html</link>
+			<author>itguy@simpletech-it.xyz</author>
+			<pubDate>Sun, 12 Sep 2021</pubDate>
+			<description>Start X Server Upon Login</description>
+		</item>
+		<item>
+			<title>Add Partitions to GRUB Menu</title>
+			<link>https://blog.simpletech-it.xyz/articles/add-partitions-to-grub-menu.html</link>
+			<author>itguy@simpletech-it.xyz</author>
+			<pubDate>Sun, 12 Sep 2021</pubDate>
+			<description>Add Partitions to GRUB Menu</description>
+		</item>
+		<item>
+			<title>Lorem</title>
+			<link>https://blog.simpletech-it.xyz/articles/template.html</link>
+			<author>itguy@simpletech-it.xyz</author>
+			<pubDate>Sun, 29 Aug 2021</pubDate>
+			<description>Lorem</description>
+		</item>
+	</channel>
+
+</rss>
