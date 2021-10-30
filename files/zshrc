@@ -1,0 +1,76 @@
+# Exporting
+## XDG Dirs
+export XDG_CONFIG_HOME="$HOME"/.config
+export XDG_CACHE_HOME="$HOME"/.cache
+export XDG_DATA_HOME="$HOME"/.local/share
+export XDG_DOCUMENTS_DIR="$HOME"/Documents
+export XDG_DOWNLOAD_DIR="$HOME"/Downloads
+export XDG_MUSIC_DIR="$HOME"/Downloads/Music
+export XDG_VIDEOS_DIR="$HOME"/Downloads/Videos
+export XDG_PICTURES_DIR="$HOME"/Photos
+## Color man pages
+export LESS_TERMCAP_mb=$'\E[01;32m'
+export LESS_TERMCAP_md=$'\E[01;32m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;47;34m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;36m'
+export LESS=-R
+export LESSHISTFILE=-			# Prevent it from being created
+## Extra
+export PATH=${PATH}:~/.local/bin:~/.cargo/bin
+export BROWSER=librewolf
+export EDITOR=vim
+export READER=zathura
+export HISTFILE="$XDG_CONFIG_HOME"/zsh/zhistory
+export HISTCONTROL=ignoreboth
+## Autosuggestion Settings
+ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE=20
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
+
+# Loading modules
+autoload -Uz compinit colors
+compinit -d $XDG_CONFIG_HOME/zsh/zcompdump-$ZSH_VERSION
+colors							# Enables colors
+
+# Quality of Life Improvements
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'		# Case insensitive tab completion
+zstyle ':completion:*' rehash true					# automatically find new executables in path
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache
+
+# Hist Settings
+HISTSIZE=1000
+SAVEHIST=1000
+WORDCHARS=${WORDCHARS//\/[&.;]}	# Don't consider certain characters part of the word
+
+# Sourcing
+. "$XDG_CONFIG_HOME"/zsh/aliases
+. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
+. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# Set Prompt
+setopt prompt_subst
+PROMPT="%B%{$fg[cyan]%}%(4~|%-1~/.../%2~|%~)%u%b >%{$fg[cyan]%}>%B%(?.%{$fg[cyan]%}.%{$fg[red]%})>%{$reset_color%}%b "
+RPROMPT="%{$fg[red]%} %(?..[%?])"
+
+# Keybind Section
+bindkey -e
+bindkey '^[[H' beginning-of-line			# Home
+bindkey "${terminfo[kend]}" end-of-line			# End
+bindkey '^[[2~' overwrite-mode				# Insert
+bindkey '^[[3~' delete-char				# Delete
+bindkey '^[[C'  forward-char				# Right
+bindkey '^[[D'  backward-char				# Left
+bindkey '^[[5~' history-beginning-search-backward	# Page up
+bindkey '^[[6~' history-beginning-search-forward	# Page down
+bindkey '^[[1;5C' forward-word				# Ctrl+Right
+bindkey '^[[1;5D' backward-word				# Ctrl+Left
+bindkey '^H' backward-kill-word				# Ctrl+Backspace
+bindkey '^[[Z' undo					# Shift+tab
+
+# Commands to Run When Terminal Launches
+echo $USER@$HOST  $(uname -srm)

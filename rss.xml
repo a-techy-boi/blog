@@ -8,6 +8,13 @@
 
 		<!-- One ITEM tag per Article -->
 		<item>
+			<title>How to  Customize ZSH</title>
+			<link>https://blog.simpletech-it.xyz/articles/customize-zsh.html</link>
+			<author>itguy@simpletech-it.xyz</author>
+			<pubDate>Fri, 25 Sep 2021</pubDate>
+			<description>How to customize ZSH</description>
+		</item>
+		<item>
 			<title>Make RSS Feed for Your Websites</title>
 			<link>https://blog.simpletech-it.xyz/articles/make-rss-feed-for-site.html</link>
 			<author>itguy@simpletech-it.xyz</author>

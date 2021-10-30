@@ -42,9 +42,11 @@ a:visited {
 	padding-left: 20px;
 }
 
+/* Lists, because they're black for some reason */
 .ordered_list {
 	color: white;
 }
+
 
 code {
 	color: limegreen;

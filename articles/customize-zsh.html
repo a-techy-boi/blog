@@ -1,0 +1,128 @@
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Romam Blog</title>
+	<link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+	<table>
+		<tr>
+			<td class="left_panel">
+				<h1>Links</h1>
+				<ul class="home_links">
+					<li>
+						<a href="/">Home</a>
+					</li>
+					<li>
+						<a href="https://simpletech-it.xyz">Personal Site</a>
+					</li>
+					<li>
+						<a href="https://simpletech-it.xyz/articles/contact.html">Contact Me</a>
+					</li>
+					<li>
+						<a href="https://github.com/a-techy-boi/blog">Source Code</a>
+					</li>
+				</ul>
+				<h1>Banners</h1>
+				<ul class="home_links">
+					<li>
+						<a href="https://landchad.net"><img src="/images/landchad.gif" alt="landchad.net"></a>
+					</li>
+					<li>
+						<a href="/rss.xml"><img src="/images/rss.png" alt="RSS" style="width: 30px;"></a>
+					</li>
+			</td>
+
+			<td class="separator"> </td>
+
+			<td class="blog_body">
+				<h1>How to Customize ZSH</h1>
+				<h1>Get Started</h1>
+				<p>I ripped the ZSH config from Manjaro because it's a beautiful config. It has a lot, yes, but you can remove the stuff you <em>know</em> you don't need, which is what I did over time. I finally got all the essentials and no longer depend on carrying around the folders around.</p>
+				<h1>Clean $HOME</h1>
+				<p>To move the location of your config files for ZSH, set the ZDOTDIR environment variable inside of <code>&quot;$HOME&quot;/.zshenv</code>. Add something like <code>export ZDOTDIR=~/.config/zsh</code>.</p>
+				<p><b>Note: </b>It'll still look for <code>.zshrc</code> for all your settings.</p>
+				<h1>Configure ZSH</h1>
+				<p>This will wildly depend on a per-person basis. <em>especially</em> the keybindings. I will go over what you may want to set in sequential order because what you set above will affect the stuff below, like the XDG directories.</p>
+				<h2>XDG Directories</h2>
+				<p>XDG Directories are set via environment variables. These allow all compliant programs to know where to look for stuff. For example, config files reside in <code>&quot;$HOME&quot;/.config</code>. Some programs will already look for it, but some may also look for its XDG equivalent, <code>XDG_CONFIG_HOME</code>.
+				Here is a list of what I think to be the most important XDG directories to explicitly set:</p>
+				<pre><code class="language-bash">
+				# XDG Dirs
+				export XDG_CONFIG_HOME=&quot;$HOME&quot;/.config
+				export XDG_CACHE_HOME=&quot;$HOME&quot;/.cache
+				export XDG_DATA_HOME=&quot;$HOME&quot;/.local/share
+				export XDG_DOCUMENTS_DIR=&quot;$HOME&quot;/Documents
+				export XDG_DOWNLOAD_DIR=&quot;$HOME&quot;/Downloads
+				export XDG_MUSIC_DIR=&quot;$HOME&quot;/Downloads/Music
+				export XDG_VIDEOS_DIR=&quot;$HOME&quot;/Downloads/Videos
+				export XDG_PICTURES_DIR=&quot;$HOME&quot;/Photos
+				</code></pre>
+				<p>I listen to music and I have a script to play music. For the sake of &quot;universality&quot;, I set the XDG directory for it, as you can see above. I also use <code>pcmanfm</code> in case I want to drag and drop files, so I also set the XDG directory for my photos folder as well.</p>
+				<h2>Aliases</h2>
+				<p>In the past, I used my <code>rc</code> files in Bash and ZSH to store aliases, but it made the file very long and didn't allow me to use the aliases on multiple shells.
+				The best way to deal with aliases is to store them in their own file and source it like so:</p>
+				<pre><code class="language-bash">
+				. &quot;$XDG_CONFIG_HOME&quot;/zsh/aliases
+				</code></pre>
+				<p>This also makes a great transition to the next point.</p>
+				<h2>Set Keybindings</h2>
+				<p>Run <code>cat &gt; /dev/null</code> to allow you to see the escape sequences of your key presses. For me, pressing the right arrow key will display <code>^[[C</code> and Ctrl+left prints <code>^[[1;5D</code>.</p>
+				<p>Inside your <code>.zshrc</code>, make a keybindings section like this:</p>
+				<pre><code class="language-bash">
+				# Keybind Section
+				bindkey -e
+				bindkey '^[[H' beginning-of-line                        # Home
+				bindkey &quot;${terminfo[kend]}&quot; end-of-line                 # End
+				bindkey '^[[2~' overwrite-mode                          # Insert
+				bindkey '^[[3~' delete-char                             # Delete
+				bindkey '^[[C'  forward-char                            # Right
+				bindkey '^[[D'  backward-char                           # Left
+				bindkey '^[[5~' history-beginning-search-backward       # Page up
+				bindkey '^[[6~' history-beginning-search-forward        # Page down
+				bindkey '^[[1;5C' forward-word                          # Ctrl+Right
+				bindkey '^[[1;5D' backward-word                         # Ctrl+Left
+				bindkey '^H' backward-kill-word                         # Ctrl+Backspace
+				bindkey '^[[Z' undo                                     # Shift+tab
+				</code></pre>
+				<p>Change the contents of this section according to your needs.
+				For more information on keybindings, you may want to visit the <a href="https://wiki.archlinux.org/title/Zsh#Key_bindings">Arch Wiki</a> entry.</p>
+				<h2>Essential Plugins</h2>
+				<h3>Autocompletion</h3>
+				<p>To have a pleasant experience using the terminal, ZSH's autocompletion plugin is <em>essential</em>.
+				First, install <code>zsh-syntax-highlighting</code>, then source it in your <code>.zshrc</code>.
+				Next, add the following:</p>
+				<pre><code class="language-bash">
+				autoload -Uz compinit
+				zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'               # Case insensitive tab completion
+				zstyle ':completion:*' rehash true                                      # automatically find new executables in path
+				zstyle ':completion:*' accept-exact '*(N)'
+				zstyle ':completion:*' use-cache on
+				zstyle ':completion:*' cache-path $XDG_CACHE_HOME/zsh/zcompcache	# Where to save command list
+				</code></pre>
+				<h3>Command Auto-predictor</h3>
+				<p>Install <code>zsh-history-substring-search</code> and <code>zsh-autosuggestions</code>, then source it in your <code>.zshrc</code>.</p>
+				<h2>Prompt</h2>
+				<p>This is purely aesthetic, but some eye candy will allow you to actually <em>enjoy</em> using something. To get Manjaro's ZSH prompt, include the following:</p>
+				<pre><code class="language-bash">
+				# Enables colors
+				autoload -Uz colors
+				colors
+				
+				# Set Prompt
+				setopt prompt_subst
+				PROMPT=&quot;%B%{$fg[cyan]%}%(4~|%-1~/.../%2~|%~)%u%b &gt;%{$fg[cyan]%}&gt;%B%(?.%{$fg[cyan]%}.%{$fg[red]%})&gt;%{$reset_color%}%b &quot;
+				RPROMPT=&quot;%{$fg[red]%} %(?..[%?])&quot;
+				</code></pre>
+				<h1>Conclusion</h1>
+				<p>This should be enough to give you a good experience using ZSH and it should expose you to what you can do.
+				Happy Computing!</p>
+				<p>PS: If you just want to rip my config, <a href="/files/zshrc">here it is</a>.</p>
+				</code></pre>
+			</td>
+		</tr>
+	</table>
+</body>
